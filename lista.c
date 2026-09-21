@@ -68,7 +68,7 @@ Lista insereNoFinal(Lista qualquer){
 }
 
 // inserir em posição arbitrária.
-Lista insereEmPosicaoLivre(Lista qualquer){
+Lista insereEmPosicaoArbitraria(Lista qualquer){
     int x = 0;
     int y = 0;
     printf("Digite o número que você deseja inserir na lista: ");
@@ -100,6 +100,18 @@ Lista insereEmPosicaoLivre(Lista qualquer){
 
 // remover no início.
 
+Lista removerDoInicio(Lista qualquer){
+        for(int i = 0; i<qualquer.n-1; i++){
+            qualquer.lista[i] = qualquer.lista[i+1];   
+        } 
+        
+        qualquer.lista[qualquer.n-1] = 0;
+        qualquer.n--;
+        
+        return qualquer;
+        
+    }
+
 // remover no final.
 Lista removerFinal(Lista qualquer) {
     if (qualquer.n > 0) {
@@ -110,7 +122,70 @@ Lista removerFinal(Lista qualquer) {
 
 // remover em posição arbitrária.
 
+ Lista removeEmPosicaoArbitraria(Lista qualquer){
+        int x = 0;
+        
+        printf("Digite a posição do elemento que você deseja remover:  ");
+        scanf("%d", &x);
+        
+        while(x < 1 || x > qualquer.n){ // x < 1
+        printf("Posição maior que o limite permitido da lista(%d), digite novamente:", qualquer.n);
+        scanf("%d", &x);
+    }
+        
+        for( int i = x-1; i<qualquer.n-1; i++){
+            
+            qualquer.lista[i] = qualquer.lista[i+1];
+        }
+        
+        qualquer.lista[qualquer.n-1] = 0;
+        qualquer.n--;
+        
+        return qualquer;
+        
+    }
+
 // remover elemento por valor.
+
+Lista removePorValor(Lista qualquer){
+        int x = 0;
+        int posicaoAretirar = 0;
+        bool verifica = false;
+        
+        printf("Digite o valor do elemento que você deseja remover:  ");
+        scanf("%d", &x);
+        
+        while(verifica == false){
+            
+            for(int i = 0; i < qualquer.n; i++){
+                if(qualquer.lista[i] == x){
+                    verifica = true;
+                    posicaoAretirar = i;
+                }
+                
+            } 
+                
+             if(verifica == false){
+               
+               printf("Valor não encontrado. Digite novamente: ");
+               scanf("%d", &x);
+            }
+            
+        }
+        
+    
+    
+        for( int i = posicaoAretirar; i<qualquer.n-1; i++){
+            
+            qualquer.lista[i] = qualquer.lista[i+1];
+        }
+        
+        qualquer.lista[qualquer.n-1] = 0;
+        qualquer.n--;
+        
+        return qualquer;
+        
+    }
 
 
     // ----------------------   CONSULTAS   ----------------------
@@ -118,10 +193,35 @@ Lista removerFinal(Lista qualquer) {
 
 // buscar posição de um valor.
 
-
+int ConsultaPosicaoDoValor(Lista qualquer){
+        int x = 0;
+        int posicaoValor = 0;
+        bool verifica = false;
+        
+        printf("Digite o valor do elemento que você deseja consulta a posição:  ");
+        scanf("%d", &x);
+            
+            for(int i = 0; i < qualquer.n; i++){
+                if(qualquer.lista[i] == x){
+                    verifica = true;
+                    posicaoValor = i;
+                    break;
+                }
+                
+            } 
+                
+             if(verifica == false){
+               
+               printf("Valor não encontrado. Digite novamente: ");
+               return 0;
+            }
+            
+            return posicaoValor+1;
+            
+        }
 
 // obter valor em uma posição.
-void consultarPosicao(Lista qualquer) {
+void consultarValorPorPosicao(Lista qualquer) {
     int x = 0;
     printf("Digite a posição que você deseja consultar: (Max=%d) ", qualquer.n);
     scanf("%d", &x);
